@@ -28,53 +28,66 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      //borderRadius: BorderRadius.circular(15.0),
-      onTap: () => selectCategory(context),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0),
-        child: Row(
-          children: [
-            Expanded(
-              child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15.0),
-                    color: HexColor('#444444'),
-                    // gradient: LinearGradient(colors: [
-                    //   HexColor('#9EBAF3'),
-                    //   HexColor('#082032')
-                    //   //HexColor('#353A5F'),
-                    // ]),
-                  ),
-                  height: MediaQuery.of(context).size.height * 0.2,
-                  padding: const EdgeInsets.all(15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.27,
-                          height: MediaQuery.of(context).size.height * 0.27,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: NetworkImage(image),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0),
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  color: Theme.of(context).primaryColor,
+                  // gradient: LinearGradient(colors: [
+                  //   HexColor('#9EBAF3'),
+                  //   HexColor('#082032')
+                  //   //HexColor('#353A5F'),
+                  // ]),
+                ),
+                height: MediaQuery.of(context).size.height * 0.15,
+                padding: const EdgeInsets.fromLTRB(15, 7, 0, 7),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.27,
+                      height: MediaQuery.of(context).size.height * 0.27,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: NetworkImage(image),
+                          fit: BoxFit.cover,
                         ),
                       ),
-                      const Spacer(),
-                      Expanded(
-                          child: Text(
-                        title,
-                        style: Theme.of(context).textTheme.headline3,
-                      )),
-                    ],
-                  )),
-            ),
-          ],
-        ),
+                    ),
+                    const SizedBox(width: 25.0),
+                    Expanded(
+                        child: Text(
+                      title,
+                      style: Theme.of(context).textTheme.headline3,
+                    )),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: CircleAvatar(
+                        radius: 16,
+                        backgroundColor: HexColor('#E1E1E1'),
+                        child: IconButton(
+                          hoverColor: Colors.blue,
+                          iconSize: 15.0,
+                          onPressed: () {
+                            selectCategory(context);
+                          },
+                          icon: Icon(
+                            Icons.arrow_forward_ios,
+                            color: HexColor('#212121'),
+                          ),
+                          //color: HexColor('#212121'),
+                        ),
+                      ),
+                    )
+                  ],
+                )),
+          ),
+        ],
       ),
     );
   }

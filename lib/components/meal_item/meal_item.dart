@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:meal/models/meal.dart';
+import 'package:meal/screens/meals_details_screen/meals_details_screen.dart';
 
 class MealItem extends StatelessWidget {
   final String id;
@@ -54,10 +55,17 @@ class MealItem extends StatelessWidget {
     }
   }
 
+  void selectMeal(context) {
+    Navigator.of(context).pushNamed(
+      MealsDetailsScreen.routeName,
+      arguments: id,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () => selectMeal(context),
       child: Card(
         elevation: 4,
         margin: const EdgeInsets.all(10),
@@ -73,9 +81,12 @@ class MealItem extends StatelessWidget {
                     topLeft: Radius.circular(15.0),
                     topRight: Radius.circular(15.0),
                   ),
-                  child: Image.network(
-                    imageUrl,
-                    fit: BoxFit.cover,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Image.network(
+                      imageUrl,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 Positioned(
@@ -111,23 +122,41 @@ class MealItem extends StatelessWidget {
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        const Icon(Icons.schedule,color: Colors.white,),
+                        const Icon(
+                          Icons.schedule,
+                          color: Colors.white,
+                        ),
                         const SizedBox(width: 6),
-                        Text('$duration min',style: Theme.of(context).textTheme.headline5,),
+                        Text(
+                          '$duration min',
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
                       ],
                     ),
                     Row(
                       children: <Widget>[
-                        const Icon(Icons.work,color: Colors.white,),
+                        const Icon(
+                          Icons.work,
+                          color: Colors.white,
+                        ),
                         const SizedBox(width: 6),
-                        Text(complexityText,style: Theme.of(context).textTheme.headline5,),
+                        Text(
+                          complexityText,
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
                       ],
                     ),
                     Row(
                       children: <Widget>[
-                        const Icon(Icons.attach_money,color: Colors.white,),
+                        const Icon(
+                          Icons.attach_money,
+                          color: Colors.white,
+                        ),
                         //  const SizedBox(width: 5),
-                        Text(affordabilityText,style: Theme.of(context).textTheme.headline5,),
+                        Text(
+                          affordabilityText,
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
                       ],
                     ),
                   ],
