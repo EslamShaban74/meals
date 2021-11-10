@@ -17,10 +17,6 @@ class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Meals'),
-        centerTitle: true,
-      ),
       body: ListView.builder(
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) {

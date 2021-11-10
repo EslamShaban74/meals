@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:meal/screens/categories_screen/categories_screen.dart';
+import 'package:meal/screens/bottom_nav_bar/bottom_nav_bar.dart';
+import 'package:meal/screens/meals_details_screen/meals_details_screen.dart';
 import 'package:meal/screens/meals_screen/meals_screen.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -16,27 +15,30 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Meal',
       theme: ThemeData(
+        primaryColor: HexColor('#444444'),
         appBarTheme: AppBarTheme(
-          backgroundColor: HexColor('#444444'),
+          elevation: 0,
+          backgroundColor: HexColor('#212121'),
         ),
         scaffoldBackgroundColor: HexColor('#212121'),
         primarySwatch: Colors.blue,
-        textTheme: const TextTheme(
+        textTheme:  TextTheme(
           headline3: TextStyle(
               fontSize: 20.0,
-              color: Colors.white,
+              color: HexColor('#E1E1E1'),
               fontFamily: 'RobotoCondensed'),
-          headline5: TextStyle(
+          headline5: const TextStyle(
             color: Colors.white,
             fontFamily: 'RobotoCondensed',
             fontSize: 18.0,
           ),
         ),
       ),
-      home: CategoriesScreen(),
+      home: BottomNavBar(),
       routes: {
         // '/': (context) => CategoriesScreen(),
         MealsScreen.routeName: (context) => const MealsScreen(),
+        MealsDetailsScreen.routeName: (context) => const MealsDetailsScreen(),
       },
     );
   }
