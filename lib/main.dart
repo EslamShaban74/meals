@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:meal/screens/bottom_nav_bar/bottom_nav_bar.dart';
+import 'package:meal/screens/categories_screen/categories_screen.dart';
+import 'package:meal/screens/filters_screen/filters_screen.dart';
 import 'package:meal/screens/meals_details_screen/meals_details_screen.dart';
 import 'package:meal/screens/meals_screen/meals_screen.dart';
 
@@ -15,6 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Meal',
       theme: ThemeData(
+        canvasColor: HexColor('#E1E1E1'),
         primaryColor: HexColor('#444444'),
         appBarTheme: AppBarTheme(
           elevation: 0,
@@ -22,7 +25,7 @@ class MyApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: HexColor('#212121'),
         primarySwatch: Colors.blue,
-        textTheme:  TextTheme(
+        textTheme: TextTheme(
           headline3: TextStyle(
               fontSize: 20.0,
               color: HexColor('#E1E1E1'),
@@ -39,6 +42,8 @@ class MyApp extends StatelessWidget {
         // '/': (context) => CategoriesScreen(),
         MealsScreen.routeName: (context) => const MealsScreen(),
         MealsDetailsScreen.routeName: (context) => const MealsDetailsScreen(),
+        BottomNavBar.routeName: (context) => BottomNavBar(),
+        FiltersScreen.routeName: (context) => const FiltersScreen(),
       },
     );
   }

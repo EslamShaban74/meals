@@ -1,11 +1,13 @@
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:meal/components/drawer/drawer.dart';
 import 'package:meal/screens/categories_screen/categories_screen.dart';
 import 'package:meal/screens/favorites_screen/favorites_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
   BottomNavBar({Key? key}) : super(key: key);
+  static  const routeName = 'home';
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
@@ -31,11 +33,17 @@ class _BottomNavBarState extends State<BottomNavBar> {
         title: Text(pages[currentPage]['title']),
       ),
       body: pages[currentPage]['page'],
+      drawerScrimColor: Colors.black.withOpacity(0.7),
+      drawer: SizedBox(
+        width: MediaQuery.of(context).size.width*0.82,
+        child: const MyDrawer(),
+      ),
       bottomNavigationBar: FancyBottomNavigation(
-       barBackgroundColor: HexColor('#E1E1E1'),
-      circleColor:Theme.of(context).primaryColor,
-       // inactiveIconColor: Colors.white,
-        textColor: Colors.black,
+        barBackgroundColor: Theme.of(context).canvasColor,
+
+        circleColor: Theme.of(context).backgroundColor,
+        // inactiveIconColor: Colors.white,
+        textColor: Theme.of(context).primaryColor,
         tabs: [
           TabData(iconData: Icons.category, title: "Categories"),
           TabData(iconData: Icons.favorite_border, title: "Favorites"),
