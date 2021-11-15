@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:meal/components/meal_item/meal_item.dart';
 import 'package:meal/models/meal.dart';
+import 'package:meal/providers/meal_provider/meal_provider.dart';
+import 'package:provider/provider.dart';
 
 class FavoritesScreen extends StatelessWidget {
-  final void Function(String) toggleFavorites;
-  final void Function(String) isFavorite;
-  final List<Meal> favoriteMeals;
-
-  const FavoritesScreen(
-      this.toggleFavorites, this.isFavorite, this.favoriteMeals,
-      {Key? key})
-      : super(key: key);
+  const FavoritesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final List<Meal> favoriteMeals =
+        Provider.of<MealProvider>(context).favoriteMeals;
+
     if (favoriteMeals.isEmpty) {
       return Center(
         child: Text(

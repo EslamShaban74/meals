@@ -60,7 +60,7 @@ class MyDrawer extends StatelessWidget {
               'Meals',
               Icons.restaurant,
               () {
-                Navigator.of(context).pushNamed(BottomNavBar.routeName);
+                Navigator.of(context).pushNamed('/');
               },
               context,
             ),
