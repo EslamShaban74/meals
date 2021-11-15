@@ -1,72 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:meal/constants/dummy_data.dart';
+import 'package:meal/providers/meal_provider/meal_provider.dart';
 import 'package:meal/screens/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:meal/screens/filters_screen/filters_screen.dart';
 import 'package:meal/screens/meals_details_screen/meals_details_screen.dart';
 import 'package:meal/screens/meals_screen/meals_screen.dart';
+import 'package:provider/provider.dart';
 
-import 'models/meal.dart';
-
-void main() => runApp(const MyApp());
-
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  State<MyApp> createState() => _MyAppState();
+void main() {
+  runApp(
+    ChangeNotifierProvider<MealProvider>(
+      create: (context) => MealProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
-class _MyAppState extends State<MyApp> {
-  Map<String, bool> filters = {
-    'gluten': false,
-    'lactose': false,
-    'vegetarian': false,
-    'vegan': false,
-  };
-
-  List<Meal> availableMeals = dummyMeals;
-
-  void setFilters(Map<String, bool> filteredData) {
-    setState(() {
-      filters = filteredData;
-      availableMeals = dummyMeals.where((element) {
-        if (filters['gluten']! && !element.isGlutenFree) {
-          return false;
-        } else if (filters['lactose']! && !element.isLactoseFree) {
-          return false;
-        } else if (filters['vegetarian']! && !element.isVegetarian) {
-          return false;
-        } else if (filters['vegan']! && !element.isVegan) {
-          return false;
-        }
-
-        return true;
-      }).toList();
-    });
-  }
-
-  List<Meal> favoriteMeals = [];
-
-  void toggleFavorites(String mealId) {
-    final existingIndex =
-        favoriteMeals.indexWhere((element) => element.id == mealId);
-
-    if (existingIndex >= 0) {
-      setState(() {
-        favoriteMeals.removeAt(existingIndex);
-      });
-    } else {
-      setState(() {
-        favoriteMeals
-            .add(dummyMeals.firstWhere((element) => element.id == mealId));
-      });
-    }
-  }
-
-  bool isFavorite(String mealId) {
-    return favoriteMeals.any((element) => element.id == mealId);
-  }
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -99,14 +50,11 @@ class _MyAppState extends State<MyApp> {
             ),
             caption: const TextStyle(color: Colors.white)),
       ),
-      home: null,
       routes: {
-        '/': (context) => BottomNavBar(toggleFavorites, isFavorite,favoriteMeals),
-        MealsScreen.routeName: (context) => MealsScreen(availableMeals),
-        MealsDetailsScreen.routeName: (context) =>
-            MealsDetailsScreen(isFavorite, toggleFavorites),
-        FiltersScreen.routeName: (context) =>
-            FiltersScreen(filters, setFilters),
+        '/': (context) => const BottomNavBar(),
+        MealsScreen.routeName: (context) => MealsScreen(),
+        MealsDetailsScreen.routeName: (context) => MealsDetailsScreen(),
+        FiltersScreen.routeName: (context) => FiltersScreen(),
       },
     );
   }

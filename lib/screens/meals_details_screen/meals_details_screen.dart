@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:meal/constants/dummy_data.dart';
+import 'package:meal/providers/meal_provider/meal_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'components/components.dart';
 
 class MealsDetailsScreen extends StatelessWidget {
   static const routeName = 'meal-Details';
-  final bool Function(String) isFavorite;
-  final void Function(String) toggleFavorites;
-
-  const MealsDetailsScreen(this.isFavorite, this.toggleFavorites, {Key? key})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +15,10 @@ class MealsDetailsScreen extends StatelessWidget {
     final selectedMeal = dummyMeals.firstWhere((meal) => meal.id == mealId);
     return Scaffold(
       appBar: AppBar(
-        title: Text(selectedMeal.title),
+        title: Text(
+          selectedMeal.title,
+          style: Theme.of(context).textTheme.headline3,
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -73,11 +73,14 @@ class MealsDetailsScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          toggleFavorites(mealId);
+          Provider.of<MealProvider>(context, listen: false)
+              .toggleFavorites(mealId);
         },
         backgroundColor: Theme.of(context).canvasColor,
         child: Icon(
-          isFavorite(mealId) ? Icons.star : Icons.star_border,
+          Provider.of<MealProvider>(context, listen: true).isFavorite(mealId)
+              ? Icons.star
+              : Icons.star_border,
           color: Theme.of(context).primaryColor,
         ),
       ),

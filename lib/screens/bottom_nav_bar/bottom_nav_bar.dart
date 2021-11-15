@@ -1,21 +1,15 @@
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:meal/components/drawer/drawer.dart';
-import 'package:meal/models/meal.dart';
+import 'package:meal/providers/meal_provider/meal_provider.dart';
 import 'package:meal/screens/categories_screen/categories_screen.dart';
 import 'package:meal/screens/favorites_screen/favorites_screen.dart';
+import 'package:provider/provider.dart';
 
 class BottomNavBar extends StatefulWidget {
-  final void Function(String) toggleFavorites;
-
-  final void Function(String) isFavorite;
-
-  final List<Meal> favoriteMeals;
-
-  const BottomNavBar(this.toggleFavorites, this.isFavorite, this.favoriteMeals);
-
   static const routeName = 'home';
+
+  const BottomNavBar({Key? key}) : super(key: key);
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
@@ -27,6 +21,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   void initState() {
+    Provider.of<MealProvider>(context,listen: false).getFilters();
     pages = [
       {
         'title': 'Categories',
@@ -34,10 +29,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
       },
       {
         'title': 'Favorites',
-        'page': FavoritesScreen(
-            widget.toggleFavorites, widget.isFavorite, widget.favoriteMeals),
+        'page': const FavoritesScreen(),
       },
     ];
+
     super.initState();
   }
 
@@ -59,7 +54,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       bottomNavigationBar: FancyBottomNavigation(
         barBackgroundColor: Theme.of(context).canvasColor,
 
-        circleColor: Theme.of(context).backgroundColor,
+        circleColor: Theme.of(context).primaryColor,
         // inactiveIconColor: Colors.white,
         textColor: Theme.of(context).primaryColor,
         tabs: [
