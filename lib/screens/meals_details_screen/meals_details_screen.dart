@@ -28,9 +28,15 @@ class MealsDetailsScreen extends StatelessWidget {
               width: double.infinity,
               child: Hero(
                 tag: mealId,
-                child: Image.network(
-                  selectedMeal.imageUrl,
-                  fit: BoxFit.cover,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    bottomRight: Radius.circular(15),
+                    bottomLeft: Radius.circular(15),
+                  ),
+                  child: Image.network(
+                    selectedMeal.imageUrl,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
@@ -57,14 +63,17 @@ class MealsDetailsScreen extends StatelessWidget {
               itemBuilder: (ctx, index) => Card(
                 color: Colors.amber,
                 child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 5,
-                      horizontal: 10,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 5,
+                    horizontal: 10,
+                  ),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      child: Text('${(index + 1)}'),
                     ),
-                    child: Text(
-                      selectedMeal.steps[index],
-                      style: const TextStyle(color: Colors.black),
-                    )),
+                    title: Text(selectedMeal.steps[index]),
+                  ),
+                ),
               ),
               itemCount: selectedMeal.steps.length,
             )),

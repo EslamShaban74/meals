@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meal/screens/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:meal/screens/filters_screen/filters_screen.dart';
+import 'package:meal/screens/theme_screen/theme_screen.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({Key? key}) : super(key: key);
@@ -14,7 +15,8 @@ class MyDrawer extends StatelessWidget {
     return ListTile(
       leading: Icon(
         icon,
-        color: Theme.of(context).canvasColor,
+        color: Theme.of(context).iconTheme.color,
+
       ),
       title: Text(
         title,
@@ -27,6 +29,7 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      elevation: 0,
       child: Container(
         color: Theme.of(context).scaffoldBackgroundColor,
         child: Column(
@@ -48,7 +51,7 @@ class MyDrawer extends StatelessWidget {
                       color: Colors.black.withOpacity(0.6),
                       child: Text(
                         'Foodiaa!',
-                        style: Theme.of(context).textTheme.headline3,
+                        style: Theme.of(context).textTheme.headline3!.copyWith(color: Colors.white),
                       ),
                     ),
                   )
@@ -60,7 +63,7 @@ class MyDrawer extends StatelessWidget {
               'Meals',
               Icons.restaurant,
               () {
-                Navigator.of(context).pushNamed('/');
+                Navigator.of(context).pushReplacementNamed('/');
               },
               context,
             ),
@@ -69,10 +72,14 @@ class MyDrawer extends StatelessWidget {
               'Filters',
               Icons.list,
               () {
-                Navigator.pushNamed(context, FiltersScreen.routeName);
+                Navigator.of(context)
+                    .pushReplacementNamed(FiltersScreen.routeName);
               },
               context,
-            )
+            ),
+            buildListTile('Themes', Icons.color_lens_outlined, () {
+              Navigator.of(context).pushReplacementNamed(ThemeScreen.routeName);
+            }, context)
           ],
         ),
       ),

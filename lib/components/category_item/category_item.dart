@@ -69,15 +69,15 @@ class CategoryItem extends StatelessWidget {
                       padding: const EdgeInsets.all(15.0),
                       child: CircleAvatar(
                         radius: 16,
-                        backgroundColor:Theme.of(context).canvasColor,
+                        backgroundColor: Theme.of(context).canvasColor,
                         child: IconButton(
                           iconSize: 15.0,
                           onPressed: () {
                             selectCategory(context);
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.arrow_forward_ios,
-                            color:Theme.of(context).scaffoldBackgroundColor,
+
                           ),
                           //color: HexColor('#212121'),
                         ),
