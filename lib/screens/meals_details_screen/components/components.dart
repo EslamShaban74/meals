@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 Widget buildSectionTitle(BuildContext context, String text) {
   return Container(
-    margin: const EdgeInsets.symmetric(vertical: 10),
+    margin: const EdgeInsets.symmetric(vertical: 15),
     child: Text(
       text,
-      style: Theme.of(context).textTheme.subtitle1,
+      style: Theme.of(context).textTheme.headline3,
     ),
   );
 }

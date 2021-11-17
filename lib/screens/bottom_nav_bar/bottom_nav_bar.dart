@@ -2,6 +2,7 @@ import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:meal/components/drawer/drawer.dart';
 import 'package:meal/providers/meal_provider/meal_provider.dart';
+import 'package:meal/providers/theme_provider/theme_provider.dart';
 import 'package:meal/screens/categories_screen/categories_screen.dart';
 import 'package:meal/screens/favorites_screen/favorites_screen.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +22,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   void initState() {
-    Provider.of<MealProvider>(context,listen: false).getFilters();
+    Provider.of<MealProvider>(context, listen: false).getFilters();
+    Provider.of<ThemeProvider>(context, listen: false).getThemeMode();
     pages = [
       {
         'title': 'Categories',

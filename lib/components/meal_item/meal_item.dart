@@ -56,14 +56,16 @@ class MealItem extends StatelessWidget {
   }
 
   void selectMeal(context) {
-    Navigator.of(context).pushNamed(
+    Navigator.of(context)
+        .pushNamed(
       MealsDetailsScreen.routeName,
       arguments: id,
-    ).then((value) {
-      if(value!=null){
-     //   removeMeal(value);
+    )
+        .then((value) {
+      if (value != null) {
+        //   removeMeal(value);
       }
-      return ;
+      return;
     });
   }
 
@@ -103,7 +105,7 @@ class MealItem extends StatelessWidget {
                       horizontal: 15,
                     ),
                     width: 240,
-                    color: HexColor('#444444').withOpacity(0.7),
+                    color: Colors.black.withOpacity(0.6),
                     child: Text(
                       title,
                       style: const TextStyle(fontSize: 25, color: Colors.white),
@@ -116,7 +118,7 @@ class MealItem extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                  color: HexColor('#444444'),
+                  color: Theme.of(context).cardColor,
                   borderRadius: const BorderRadius.only(
                       bottomRight: Radius.circular(15),
                       bottomLeft: Radius.circular(15))),
@@ -127,9 +129,9 @@ class MealItem extends StatelessWidget {
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        const Icon(
+                        Icon(
                           Icons.schedule,
-                          color: Colors.white,
+                          color: Theme.of(context).iconTheme.color,
                         ),
                         const SizedBox(width: 6),
                         Text(
@@ -140,9 +142,9 @@ class MealItem extends StatelessWidget {
                     ),
                     Row(
                       children: <Widget>[
-                        const Icon(
+                        Icon(
                           Icons.work,
-                          color: Colors.white,
+                          color: Theme.of(context).iconTheme.color,
                         ),
                         const SizedBox(width: 6),
                         Text(
@@ -153,9 +155,9 @@ class MealItem extends StatelessWidget {
                     ),
                     Row(
                       children: <Widget>[
-                        const Icon(
+                        Icon(
                           Icons.attach_money,
-                          color: Colors.white,
+                          color: Theme.of(context).iconTheme.color,
                         ),
                         //  const SizedBox(width: 5),
                         Text(

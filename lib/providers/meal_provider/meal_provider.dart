@@ -47,22 +47,37 @@ class MealProvider with ChangeNotifier {
     filters['vegetarian'] = prefs.getBool('vegetarian')!;
     filters['vegan'] = prefs.getBool('vegan')!;
     notifyListeners();
+
+    prefsMealId = prefs.getStringList('prefsMealId')!;
+    for (var mealId in prefsMealId) {
+      final existingIndex =
+          favoriteMeals.indexWhere((element) => element.id == mealId);
+      if (existingIndex < 0) {
+        favoriteMeals
+            .add(dummyMeals.firstWhere((element) => element.id == mealId));
+      }
+    }
   }
 
   List<Meal> favoriteMeals = [];
 
-  void toggleFavorites(String mealId) {
+  void toggleFavorites(String mealId) async {
     final existingIndex =
         favoriteMeals.indexWhere((element) => element.id == mealId);
 
     if (existingIndex >= 0) {
       favoriteMeals.removeAt(existingIndex);
+      prefsMealId.remove(mealId);
     } else {
       favoriteMeals
           .add(dummyMeals.firstWhere((element) => element.id == mealId));
+      prefsMealId.add(mealId);
     }
 
     notifyListeners();
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList('prefsMealId', prefsMealId);
   }
 
   bool isFavorite(String mealId) {

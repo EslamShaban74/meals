@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:meal/providers/meal_provider/meal_provider.dart';
+import 'package:meal/providers/theme_provider/theme_provider.dart';
 import 'package:meal/screens/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:meal/screens/filters_screen/filters_screen.dart';
 import 'package:meal/screens/meals_details_screen/meals_details_screen.dart';
 import 'package:meal/screens/meals_screen/meals_screen.dart';
+import 'package:meal/screens/theme_screen/theme_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider<MealProvider>(
-      create: (context) => MealProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<MealProvider>(
+          create: (context) => MealProvider(),
+        ),
+        ChangeNotifierProvider<ThemeProvider>(
+            create: (context) => ThemeProvider())
+      ],
       child: const MyApp(),
     ),
   );
@@ -21,18 +29,55 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var themeMode = Provider.of<ThemeProvider>(context, listen: true).themeMode;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Meal',
+      themeMode: themeMode,
       theme: ThemeData(
-        canvasColor: HexColor('#E1E1E1'),
+        cardColor: Colors.white70,
+        primaryColor: Colors.teal,
+        appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          ),
+          backgroundColor: Colors.white,
+        ),
+        scaffoldBackgroundColor: HexColor('#E1E1E1'),
+        primarySwatch: Colors.teal,
+        iconTheme: const IconThemeData(color: Colors.black),
+        textTheme: const TextTheme(
+            headline3: TextStyle(
+              fontSize: 18.0,
+              color: Colors.black,
+              fontFamily: 'Raleway',
+            ),
+            headline5: TextStyle(
+              color: Colors.black,
+              fontFamily: 'RobotoCondensed',
+              fontSize: 18.0,
+            ),
+            headline6: TextStyle(
+              color: Colors.black,
+              fontSize: 12.0,
+              fontFamily: 'RobotoCondensed',
+            ),
+            bodyText1: TextStyle(
+              color: Colors.black,
+              fontFamily: 'RobotoCondensed',
+            ),
+            caption: TextStyle(color: Colors.black)),
+      ),
+      darkTheme: ThemeData(
         primaryColor: HexColor('#444444'),
+        cardColor: HexColor('#444444'),
         appBarTheme: AppBarTheme(
           elevation: 0,
           backgroundColor: HexColor('#212121'),
         ),
         scaffoldBackgroundColor: HexColor('#212121'),
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.indigo,
+        iconTheme: const IconThemeData(color: Colors.white70),
         textTheme: TextTheme(
             headline3: TextStyle(
                 fontSize: 20.0,
@@ -48,6 +93,8 @@ class MyApp extends StatelessWidget {
               fontSize: 12.0,
               fontFamily: 'RobotoCondensed',
             ),
+            bodyText1: TextStyle(
+                color: HexColor('#E1E1E1'), fontFamily: 'RobotoCondensed'),
             caption: const TextStyle(color: Colors.white)),
       ),
       routes: {
@@ -55,6 +102,7 @@ class MyApp extends StatelessWidget {
         MealsScreen.routeName: (context) => MealsScreen(),
         MealsDetailsScreen.routeName: (context) => MealsDetailsScreen(),
         FiltersScreen.routeName: (context) => FiltersScreen(),
+        ThemeScreen.routeName: (context) => const ThemeScreen(),
       },
     );
   }

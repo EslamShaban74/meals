@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:meal/components/drawer/drawer.dart';
 import 'package:meal/providers/meal_provider/meal_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +15,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
   Widget buildSwitchListTile(
       String title, String description, bool value, ValueChanged onChanged) {
     return SwitchListTile(
-        activeColor: HexColor('#89FC00'),
+       // activeColor: HexColor('#89FC00'),
         inactiveTrackColor: Colors.white,
         inactiveThumbColor: Theme.of(context).primaryColor.withOpacity(0.7),
         title: Text(
@@ -37,6 +38,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
           style: Theme.of(context).textTheme.headline3,
         ),
       ),
+      drawer: const MyDrawer(),
       body: Column(
         children: <Widget>[
           Center(
