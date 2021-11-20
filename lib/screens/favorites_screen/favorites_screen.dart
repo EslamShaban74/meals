@@ -9,6 +9,9 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var dw = MediaQuery.of(context).size.width;
+    bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     final List<Meal> favoriteMeals =
         Provider.of<MealProvider>(context).favoriteMeals;
 
@@ -19,8 +22,15 @@ class FavoritesScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.headline3,
         ),
       );
-    } else {
-      return ListView.builder(
+    } else {// 802  8505
+      return GridView.builder(
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: dw <= 400 ? 400 : 500,
+          childAspectRatio:
+              isLandscape ? dw / (dw * 0.9) : dw / (dw * 0.9),
+          crossAxisSpacing: 5,
+          mainAxisSpacing: 5,
+        ),
         itemBuilder: (context, index) => MealItem(
           title: favoriteMeals[index].title,
           affordability: favoriteMeals[index].affordability,

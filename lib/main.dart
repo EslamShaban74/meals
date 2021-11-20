@@ -11,10 +11,11 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(
+
     MultiProvider(
       providers: [
         ChangeNotifierProvider<MealProvider>(
-          create: (context) => MealProvider(),
+          create: (context) => MealProvider()..getData()..setFilters(),
         ),
         ChangeNotifierProvider<ThemeProvider>(
             create: (context) => ThemeProvider())
@@ -24,9 +25,20 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    Provider.of<MealProvider>(context, listen: false).getData();
+    Provider.of<ThemeProvider>(context, listen: false).getThemeMode();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var themeMode = Provider.of<ThemeProvider>(context, listen: true).themeMode;
@@ -82,7 +94,7 @@ class MyApp extends StatelessWidget {
             headline3: TextStyle(
                 fontSize: 20.0,
                 color: HexColor('#E1E1E1'),
-                fontFamily: 'RobotoCondensed'),
+                fontFamily: 'Raleway'),
             headline5: const TextStyle(
               color: Colors.white,
               fontFamily: 'RobotoCondensed',
