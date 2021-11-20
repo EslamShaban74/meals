@@ -10,7 +10,10 @@ Widget buildSectionTitle(BuildContext context, String text) {
   );
 }
 
-Widget buildContainer(Widget child) {
+Widget buildContainer(Widget child, context) {
+  var dw = MediaQuery.of(context).size.width;
+  bool isLandscape =
+      MediaQuery.of(context).orientation == Orientation.landscape;
   return Container(
     decoration: BoxDecoration(
       color: Colors.white,
@@ -20,7 +23,7 @@ Widget buildContainer(Widget child) {
     margin: const EdgeInsets.all(10),
     padding: const EdgeInsets.all(10),
     height: 150,
-    width: 300,
+    width: isLandscape ? (dw * 0.5 - 30) : dw,
     child: child,
   );
 }

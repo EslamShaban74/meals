@@ -33,23 +33,45 @@ class _MealsScreenState extends State<MealsScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-
+    var dw = MediaQuery.of(context).size.width;
+    bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(categoryTitle,style: Theme.of(context).textTheme.headline3,),
-      ),
-      body: ListView.builder(
-        itemBuilder: (context, index) => MealItem(
-          title: categoryMeals[index].title,
-          affordability: categoryMeals[index].affordability,
-          complexity: categoryMeals[index].complexity,
-          id: categoryMeals[index].id,
-          imageUrl: categoryMeals[index].imageUrl,
-          duration: categoryMeals[index].duration,
+        appBar: AppBar(
+          title: Text(
+            categoryTitle,
+            style: Theme.of(context).textTheme.headline3,
+          ),
         ),
-        itemCount: categoryMeals.length,
-      ),
-    );
+        body: GridView.builder(
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: dw <= 400 ? 400 : 500,
+            childAspectRatio:
+                isLandscape ? dw / (dw * 0.802) : dw / (dw * 0.8505),
+            crossAxisSpacing: 5,
+            mainAxisSpacing: 5,
+          ),
+          itemBuilder: (context, index) => MealItem(
+            title: categoryMeals[index].title,
+            affordability: categoryMeals[index].affordability,
+            complexity: categoryMeals[index].complexity,
+            id: categoryMeals[index].id,
+            imageUrl: categoryMeals[index].imageUrl,
+            duration: categoryMeals[index].duration,
+          ),
+          itemCount: categoryMeals.length,
+        )
+        // : ListView.builder(
+        //     itemBuilder: (context, index) => MealItem(
+        //       title: categoryMeals[index].title,
+        //       affordability: categoryMeals[index].affordability,
+        //       complexity: categoryMeals[index].complexity,
+        //       id: categoryMeals[index].id,
+        //       imageUrl: categoryMeals[index].imageUrl,
+        //       duration: categoryMeals[index].duration,
+        //     ),
+        //     itemCount: categoryMeals.length,
+        //   ),
+        );
   }
 }

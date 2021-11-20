@@ -22,8 +22,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   void initState() {
-    Provider.of<MealProvider>(context, listen: false).getFilters();
-    Provider.of<ThemeProvider>(context, listen: false).getThemeMode();
+
     pages = [
       {
         'title': 'Categories',

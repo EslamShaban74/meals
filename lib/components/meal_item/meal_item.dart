@@ -74,6 +74,7 @@ class MealItem extends StatelessWidget {
     return InkWell(
       onTap: () => selectMeal(context),
       child: Card(
+
         elevation: 4,
         margin: const EdgeInsets.all(10),
         shape: RoundedRectangleBorder(
@@ -88,27 +89,32 @@ class MealItem extends StatelessWidget {
                     topLeft: Radius.circular(15.0),
                     topRight: Radius.circular(15.0),
                   ),
-                  child: SizedBox(
-                    width: double.infinity,
+                  child: Hero(
+                    tag: id,
                     child: Image.network(
                       imageUrl,
+                      height: 250,
+                      width: double.infinity,
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
                 Positioned(
-                  bottom: 20,
-                  right: 10,
+                  bottom: MediaQuery.of(context).size.width * 0.03,
+                  right: MediaQuery.of(context).size.width * 0.03,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                      vertical: 10,
-                      horizontal: 15,
+                      vertical: 5,
+                      horizontal: 20,
                     ),
-                    width: 240,
-                    color: Colors.black.withOpacity(0.6),
+                    width: 300,
+                    color: Colors.black54,
                     child: Text(
                       title,
-                      style: const TextStyle(fontSize: 25, color: Colors.white),
+                      style: const TextStyle(
+                        fontSize: 25,
+                        color: Colors.white,
+                      ),
                       softWrap: true,
                       overflow: TextOverflow.fade,
                     ),
@@ -116,55 +122,70 @@ class MealItem extends StatelessWidget {
                 )
               ],
             ),
-            Container(
-              decoration: BoxDecoration(
-                  color: Theme.of(context).cardColor,
-                  borderRadius: const BorderRadius.only(
-                      bottomRight: Radius.circular(15),
-                      bottomLeft: Radius.circular(15))),
+            Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.schedule,
-                          color: Theme.of(context).iconTheme.color,
-                        ),
-                        const SizedBox(width: 6),
-                        Text(
-                          '$duration min',
-                          style: Theme.of(context).textTheme.headline5,
-                        ),
-                      ],
+                    Expanded(
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Icon(
+                              Icons.schedule,
+                              color: Theme.of(context).iconTheme.color,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          Expanded(
+                            child: Text(
+                              '$duration min',
+                              style: Theme.of(context).textTheme.headline5,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.work,
-                          color: Theme.of(context).iconTheme.color,
-                        ),
-                        const SizedBox(width: 6),
-                        Text(
-                          complexityText,
-                          style: Theme.of(context).textTheme.headline5,
-                        ),
-                      ],
+                    Expanded(
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Icon(
+                              Icons.work,
+                              color: Theme.of(context).iconTheme.color,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          Expanded(
+                            child: Text(
+                              complexityText,
+                              style: Theme.of(context).textTheme.headline5,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.attach_money,
-                          color: Theme.of(context).iconTheme.color,
-                        ),
-                        //  const SizedBox(width: 5),
-                        Text(
-                          affordabilityText,
-                          style: Theme.of(context).textTheme.headline5,
-                        ),
-                      ],
+                    Expanded(
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Icon(
+                              Icons.attach_money,
+                              color: Theme.of(context).iconTheme.color,
+                            ),
+                          ),
+                          //  const SizedBox(width: 5),
+                          Expanded(
+                            child: Text(
+                              affordabilityText,
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context).textTheme.headline5,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

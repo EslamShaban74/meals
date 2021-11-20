@@ -34,7 +34,12 @@ class ThemeProvider with ChangeNotifier {
 
   getThemeMode() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    themeText = prefs.getString('themeText')!;
+    if (prefs.getString('themeText') != null) {
+      themeText = prefs.getString('themeText')!;
+    } else {
+      themeText = 'system';
+    }
+
     if (themeText == 'system') {
       themeMode = ThemeMode.system;
     } else if (themeText == 'dark') {
