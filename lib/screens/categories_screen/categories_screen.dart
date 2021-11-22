@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:meal/components/category_item/category_item.dart';
 import 'package:meal/constants/dummy_data.dart';
@@ -27,6 +28,17 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             ))
         .toList();
     return Scaffold(
+      // appBar: AppBar(
+      //   actions: [
+      //     IconButton(
+      //       icon: const Icon(Icons.add),
+      //       onPressed: () async {
+      //         await context.setLocale(const Locale('en'));
+      //       },
+      //     )
+      //   ],
+      //
+      // ),
       body: ListView.builder(
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) {

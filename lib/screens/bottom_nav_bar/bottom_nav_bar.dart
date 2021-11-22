@@ -1,11 +1,12 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:meal/components/drawer/drawer.dart';
-import 'package:meal/providers/meal_provider/meal_provider.dart';
-import 'package:meal/providers/theme_provider/theme_provider.dart';
+
 import 'package:meal/screens/categories_screen/categories_screen.dart';
 import 'package:meal/screens/favorites_screen/favorites_screen.dart';
-import 'package:provider/provider.dart';
+
+import 'package:meal/translations/locale_keys.g.dart';
 
 class BottomNavBar extends StatefulWidget {
   static const routeName = 'home';
@@ -22,14 +23,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   void initState() {
-
     pages = [
       {
-        'title': 'Categories',
+        'title': LocaleKeys.categories.tr(),
         'page': CategoriesScreen(),
       },
       {
-        'title': 'Favorites',
+        'title': LocaleKeys.favorites.tr(),
         'page': const FavoritesScreen(),
       },
     ];
@@ -40,34 +40,52 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          pages[currentPage]['title'],
-          style: Theme.of(context).textTheme.headline3,
+        appBar: AppBar(
+          title: Text(
+            pages[currentPage]['title'],
+            style: Theme.of(context).textTheme.headline3,
+          ),
         ),
-      ),
-      body: pages[currentPage]['page'],
-      drawerScrimColor: Colors.black.withOpacity(0.7),
-      drawer: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.82,
-        child: const MyDrawer(),
-      ),
-      bottomNavigationBar: FancyBottomNavigation(
-        barBackgroundColor: Theme.of(context).canvasColor,
+        body: pages[currentPage]['page'],
+        drawerScrimColor: Colors.black.withOpacity(0.7),
+        drawer: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.82,
+          child: const MyDrawer(),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
 
-        circleColor: Theme.of(context).primaryColor,
-        // inactiveIconColor: Colors.white,
-        textColor: Theme.of(context).primaryColor,
-        tabs: [
-          TabData(iconData: Icons.category, title: "Categories"),
-          TabData(iconData: Icons.favorite_border, title: "Favorites"),
-        ],
-        onTabChangedListener: (position) {
-          setState(() {
-            currentPage = position;
-          });
-        },
-      ),
-    );
+          currentIndex: currentPage,
+          onTap: (v) {
+            setState(() {
+              currentPage = v;
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.fastfood),
+                label: LocaleKeys.categories.tr()),
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.favorite_border),
+                label: LocaleKeys.favorites.tr()),
+          ],
+        )
+
+        // FancyBottomNavigation(
+        //   barBackgroundColor: Theme.of(context).canvasColor,
+        //
+        //   circleColor: Theme.of(context).primaryColor,
+        //   // inactiveIconColor: Colors.white,
+        //   textColor: Theme.of(context).primaryColor,
+        //   tabs: [
+        //     TabData(iconData: Icons.category, title: "Categories"),
+        //     TabData(iconData: Icons.favorite_border, title: "Favorites"),
+        //   ],
+        //   onTabChangedListener: (position) {
+        //     setState(() {
+        //       currentPage = position;
+        //     });
+        //   },
+        // ),
+        );
   }
 }
