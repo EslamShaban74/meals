@@ -1,26 +1,50 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:meal/providers/language_provider/language_provider.dart';
 import 'package:meal/providers/meal_provider/meal_provider.dart';
 import 'package:meal/providers/theme_provider/theme_provider.dart';
 import 'package:meal/screens/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:meal/screens/filters_screen/filters_screen.dart';
+
 import 'package:meal/screens/meals_details_screen/meals_details_screen.dart';
 import 'package:meal/screens/meals_screen/meals_screen.dart';
-import 'package:meal/screens/theme_screen/theme_screen.dart';
+import 'package:meal/screens/settings_screen/settings_screen.dart';
+
+
+import 'package:meal/translations/codegen_loader.g.dart';
+import 'package:meal/translations/locale_keys.g.dart';
+
 import 'package:provider/provider.dart';
 
-void main() {
-  runApp(
 
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider<MealProvider>(
-          create: (context) => MealProvider()..getData()..setFilters(),
+          create: (context) => MealProvider()
+            ..getData()
+            ..setFilters(),
         ),
         ChangeNotifierProvider<ThemeProvider>(
-            create: (context) => ThemeProvider())
+            create: (context) => ThemeProvider()),
+        ChangeNotifierProvider<LanguageProvider>(
+          create: (context) => LanguageProvider(),
+        )
       ],
-      child: const MyApp(),
+      child: EasyLocalization(
+        supportedLocales: const [
+          Locale('en'),
+          Locale('ar'),
+        ],
+        path: 'assets/translations',
+        fallbackLocale: const Locale('en'),
+        assetLoader: const CodegenLoader(),
+        child: const MyApp(),
+      ),
     ),
   );
 }
@@ -39,24 +63,29 @@ class _MyAppState extends State<MyApp> {
     Provider.of<ThemeProvider>(context, listen: false).getThemeMode();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     var themeMode = Provider.of<ThemeProvider>(context, listen: true).themeMode;
     return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       debugShowCheckedModeBanner: false,
-      title: 'Meal',
+      title: LocaleKeys.title.tr(),
       themeMode: themeMode,
       theme: ThemeData(
         cardColor: Colors.white70,
-        primaryColor: Colors.teal,
+        primaryColor: Colors.deepPurple[300],
         appBarTheme: const AppBarTheme(
           iconTheme: IconThemeData(
             color: Colors.black,
           ),
           backgroundColor: Colors.white,
         ),
+
         scaffoldBackgroundColor: HexColor('#E1E1E1'),
-        primarySwatch: Colors.teal,
+        primarySwatch:Colors.deepPurple,
         iconTheme: const IconThemeData(color: Colors.black),
         textTheme: const TextTheme(
             headline3: TextStyle(
@@ -114,7 +143,7 @@ class _MyAppState extends State<MyApp> {
         MealsScreen.routeName: (context) => MealsScreen(),
         MealsDetailsScreen.routeName: (context) => MealsDetailsScreen(),
         FiltersScreen.routeName: (context) => FiltersScreen(),
-        ThemeScreen.routeName: (context) => const ThemeScreen(),
+        SettingsScreen.routeName: (context) =>  SettingsScreen(),
       },
     );
   }

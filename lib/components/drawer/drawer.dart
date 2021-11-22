@@ -1,7 +1,10 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
-import 'package:meal/screens/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:meal/screens/filters_screen/filters_screen.dart';
-import 'package:meal/screens/theme_screen/theme_screen.dart';
+import 'package:meal/screens/settings_screen/settings_screen.dart';
+
+
+import 'package:meal/translations/locale_keys.g.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({Key? key}) : super(key: key);
@@ -16,7 +19,6 @@ class MyDrawer extends StatelessWidget {
       leading: Icon(
         icon,
         color: Theme.of(context).iconTheme.color,
-
       ),
       title: Text(
         title,
@@ -50,8 +52,11 @@ class MyDrawer extends StatelessWidget {
                       padding: const EdgeInsets.fromLTRB(40, 15, 15, 15),
                       color: Colors.black.withOpacity(0.6),
                       child: Text(
-                        'Foodiaa!',
-                        style: Theme.of(context).textTheme.headline3!.copyWith(color: Colors.white),
+                        LocaleKeys.drawer_title.tr(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline3!
+                            .copyWith(color: Colors.white),
                       ),
                     ),
                   )
@@ -60,7 +65,7 @@ class MyDrawer extends StatelessWidget {
             ),
             const SizedBox(height: 10.0),
             buildListTile(
-              'Meals',
+              LocaleKeys.title.tr(),
               Icons.restaurant,
               () {
                 Navigator.of(context).pushReplacementNamed('/');
@@ -69,7 +74,7 @@ class MyDrawer extends StatelessWidget {
             ),
             //const SizedBox(height: 10.0),
             buildListTile(
-              'Filters',
+              LocaleKeys.filters.tr(),
               Icons.list,
               () {
                 Navigator.of(context)
@@ -77,8 +82,8 @@ class MyDrawer extends StatelessWidget {
               },
               context,
             ),
-            buildListTile('Themes', Icons.color_lens_outlined, () {
-              Navigator.of(context).pushReplacementNamed(ThemeScreen.routeName);
+            buildListTile( LocaleKeys.settings.tr(), Icons.settings, () {
+              Navigator.of(context).pushReplacementNamed(SettingsScreen.routeName);
             }, context)
           ],
         ),

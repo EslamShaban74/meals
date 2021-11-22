@@ -138,9 +138,9 @@ class MealsDetailsScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).canvasColor,
         child: Icon(
           Provider.of<MealProvider>(context, listen: true).isFavorite(mealId)
-              ? Icons.star
-              : Icons.star_border,
-          color: Theme.of(context).primaryColor,
+              ? Icons.favorite
+              : Icons.favorite_border,
+          color: Colors.red,
         ),
       ),
     );
