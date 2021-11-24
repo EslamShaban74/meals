@@ -26,8 +26,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider<MealProvider>(
           create: (context) => MealProvider()
-            ..getData()
-            ..setFilters(),
+            ..getData(),
         ),
         ChangeNotifierProvider<ThemeProvider>(
             create: (context) => ThemeProvider()),

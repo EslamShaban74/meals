@@ -40,9 +40,13 @@ class MyDrawer extends StatelessWidget {
               color: Theme.of(context).scaffoldBackgroundColor,
               child: Stack(
                 children: [
-                  Image.network(
-                    'https://image.freepik.com/free-photo/pasta-colored-farfalle-salad-with-tomatoes-mozzarella-basil_2829-14395.jpg',
+                  const FadeInImage(
+                    image: NetworkImage(
+                      'https://image.freepik.com/free-photo/pasta-colored-farfalle-salad-with-tomatoes-mozzarella-basil_2829-14395.jpg',
+
+                    ),
                     fit: BoxFit.cover,
+                    placeholder: AssetImage('assets/images/a2.png'),
                   ),
                   Positioned(
                     left: 0,

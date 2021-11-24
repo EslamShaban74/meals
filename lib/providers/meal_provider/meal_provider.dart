@@ -48,6 +48,16 @@ class MealProvider with ChangeNotifier {
 
     availableCategory = ac;
 
+
+    List<Meal> fm = [];
+    favoriteMeals.forEach((favMeals) {
+      availableMeals.forEach((avMeals) {
+        if (favMeals.id == avMeals.id) {
+          fm.add(favMeals);
+        }
+      });
+    });
+    favoriteMeals = fm;
     notifyListeners();
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -80,7 +90,7 @@ class MealProvider with ChangeNotifier {
     } else {
       filters['vegan'] = false;
     }
-   // setFilters();
+    setFilters();
 
     if (prefs.getStringList('prefsMealId') != null) {
       prefsMealId = prefs.getStringList('prefsMealId')!;
@@ -96,6 +106,9 @@ class MealProvider with ChangeNotifier {
             .add(dummyMeals.firstWhere((element) => element.id == mealId));
       }
     }
+
+
+
     notifyListeners();
   }
 

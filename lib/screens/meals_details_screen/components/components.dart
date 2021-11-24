@@ -6,6 +6,7 @@ Widget buildSectionTitle(BuildContext context, String text) {
     child: Text(
       text,
       style: Theme.of(context).textTheme.headline3,
+      textAlign: TextAlign.center,
     ),
   );
 }
@@ -21,7 +22,7 @@ Widget buildContainer(Widget child, context) {
       borderRadius: BorderRadius.circular(10),
     ),
     margin: const EdgeInsets.all(10),
-    padding: const EdgeInsets.all(10),
+    padding: const EdgeInsets.all(0 ),
     height: 150,
     width: isLandscape ? (dw * 0.5 - 30) : dw,
     child: child,
